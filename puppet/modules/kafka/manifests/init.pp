@@ -13,21 +13,33 @@
 #              the version must be >= 0.8.  Default: installed.
 
 # Include Puppetlab's module to manage apt
-include apt
+# include apt
 
 # Import Wikimedia's debian repo that contains a Kafka package
-apt::source { 'wikimedia':
-  location          => 'http://apt.wikimedia.org/wikimedia',
-  repos             => 'hardy-wikimedia main universe',
-  required_packages => 'wikimedia-keyring',
-  include_src       => true,
-}
+# apt::source { 'wikimedia':
+#   location          => 'http://apt.wikimedia.org/wikimedia',
+#   repos             => 'hardy-wikimedia main universe',
+#   required_packages => 'wikimedia-keyring',
+#   include_src       => true,
+# }
+
+# exec{'retrieve_leiningen':
+#   command => "/usr/bin/wget -q https://raw.github.com/technomancy/leiningen/stable/bin/lein -O /home/vagrant/bin/lein",
+#   creates => "/home/vagrant/bin/lein",
+# }
+
+# file{'/home/vagrant/bin/lein':
+#   mode => 0755,
+#   require => Exec["retrieve_leiningen"],
+# }
 
 class kafka(
     $version = $kafka::defaults::version
 )
 {
     package { 'kafka':
-        ensure => $version,
+        ensure   => $version,
+        provider => dpkg,
+        source   => 'http://apt.wikimedia.org/wikimedia/pool/universe/k/kafka/kafka_0.8.0-2_all.deb',
     }
 }

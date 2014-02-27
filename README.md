@@ -7,9 +7,11 @@ Note: to make sure that guest additions are up to date with VirtualBox version r
  vagrant gem install vagrant-vbguest
 
 Roadmap:
-* Implement database-intensive application that manipulates state
-* Set up Kafka zookeper cluster
-* Set up Kafka nodes
-* Set up Storm
-* Set up Elasticsearch
-* Set up representation UI
+* In flight:
+** Set up Kafka zookeper cluster
+** Set up Kafka nodes
+* To do:
+** Sample application that saves its state in a database
+** Set up Storm
+** Set up Elasticsearch
+** Set up representation UI
