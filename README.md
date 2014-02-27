@@ -6,12 +6,30 @@ Example of event-driven system using Vagrant and a stack of Apache technologies
 Note: to make sure that guest additions are up to date with VirtualBox version run
  vagrant gem install vagrant-vbguest
 
-Roadmap:
+# Roadmap
 * In flight:
-** Set up Kafka zookeper cluster
-** Set up Kafka nodes
+  1. Set up Kafka zookeper cluster
+  2. Set up Kafka nodes
 * To do:
-** Sample application that saves its state in a database
-** Set up Storm
-** Set up Elasticsearch
-** Set up representation UI
+  3. Sample application that saves its state in a database
+  4. Set up Storm
+  5. Set up Elasticsearch
+  6. Set up representation UI
+
+# References
+* _baseconfig_ module is taken from vagrant-examples by Patrick Lee:
+
+  https://github.com/patrickdlee/vagrant-examples
+
+* _kafka_ module developed by Wikimedia:
+
+  https://github.com/wikimedia/puppet-kafka
+
+  * Enhanced with url-package from ask.puppetlabs.com
+    https://ask.puppetlabs.com/question/3473/can-you-install-deb-file-from-the-files-directory/
+
+* _zookeper_ module is developed by Wikimedia:
+
+  https://github.com/wikimedia/puppet-zookeeper
+
+d

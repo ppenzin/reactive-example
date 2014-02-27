@@ -12,34 +12,47 @@
 #              package version.  If you override this,
 #              the version must be >= 0.8.  Default: installed.
 
-# Include Puppetlab's module to manage apt
-# include apt
+define url-package (
+  $url,
+  $provider,
+  $package = undef,
+) {
 
-# Import Wikimedia's debian repo that contains a Kafka package
-# apt::source { 'wikimedia':
-#   location          => 'http://apt.wikimedia.org/wikimedia',
-#   repos             => 'hardy-wikimedia main universe',
-#   required_packages => 'wikimedia-keyring',
-#   include_src       => true,
-# }
+  if $package {
+    $package_real = $package
+  } else {
+    $package_real = $title
+  }
 
-# exec{'retrieve_leiningen':
-#   command => "/usr/bin/wget -q https://raw.github.com/technomancy/leiningen/stable/bin/lein -O /home/vagrant/bin/lein",
-#   creates => "/home/vagrant/bin/lein",
-# }
+  $package_path = "/tmp/${package_real}"
 
-# file{'/home/vagrant/bin/lein':
-#   mode => 0755,
-#   require => Exec["retrieve_leiningen"],
-# }
+  exec {'download':
+    command => "/usr/bin/wget -O ${package_path} ${url}"
+  }
+
+  package {'install':
+    ensure   => installed,
+    name     => "${package}",
+    provider => 'dpkg',
+    source   => "${package_path}",
+  }
+
+  file {'cleanup':
+    ensure => absent,
+    path   => "${package_path}",
+  }
+
+  Exec['download'] -> Package['install'] -> File['cleanup']
+
+}
 
 class kafka(
     $version = $kafka::defaults::version
 )
 {
-    package { 'kafka':
-        ensure   => $version,
+    url-package { 'kafka':
+        url => 'http://apt.wikimedia.org/wikimedia/pool/universe/k/kafka/kafka_0.8.0-2_all.deb',
+        # ensure   => $version,
         provider => dpkg,
-        source   => 'http://apt.wikimedia.org/wikimedia/pool/universe/k/kafka/kafka_0.8.0-2_all.deb',
     }
 }
