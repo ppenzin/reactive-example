@@ -1,40 +1,52 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+# Node names
+nodes = [
+  { :hostname => 'zoo1',   :ip => '192.168.0.41', :box => 'precise32' },
+  { :hostname => 'zoo2',   :ip => '192.168.0.42', :box => 'precise32' },
+  { :hostname => 'kafka1',   :ip => '192.168.0.51', :box => 'precise32' },
+  { :hostname => 'kafka2',   :ip => '192.168.0.52', :box => 'precise32' },
+]
+# Network settings (host and domain)
+domain   = 'example.org'
+# Default memory size
+default_memory   = '256'
+
 Vagrant::Config.run do |config|
   # All Vagrant configuration is done here. The most common configuration
   # options are documented and commented below. For a complete reference,
   # please see the online documentation at vagrantup.com.
 
-  # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "precise32"
+  # Congifure boxes in loop
+  nodes.each do |node|
+    # Separate config for each node
+    config.vm.define node[:hostname] do |node_config|
+      # Every Vagrant virtual environment requires a box to build off of.
+      node_config.vm.box = node[:box]
 
+      # Add hostname and domain
+      node_config.vm.host_name = node[:hostname] + '.' + domain
+
+      # Assign this VM to a host-only network IP, allowing you to access it
+      # via the IP. Host-only networks can talk to the host machine as well as
+      # any other machines on the same network, but cannot be accessed (through this
+      # network interface) by any external networks.
+      node_config.vm.network :hostonly, node[:ip]
+
+      # Tune memory and set VM name
+      memory = node[:memory] ? node[:memory] : default_memory;
+      node_config.vm.customize [
+        'modifyvm', :id,
+        '--name', node[:hostname],
+        '--memory', memory.to_s
+      ]
+    end
+  end
+  
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
-  config.vm.box_url = "http://files.vagrantup.com/precise32.box"
-
-  # Boot with a GUI so you can see the screen. (Default is headless)
-  # config.vm.boot_mode = :gui
-
-  # Assign this VM to a host-only network IP, allowing you to access it
-  # via the IP. Host-only networks can talk to the host machine as well as
-  # any other machines on the same network, but cannot be accessed (through this
-  # network interface) by any external networks.
-  # config.vm.network :hostonly, "192.168.33.10"
-
-  # Assign this VM to a bridged network, allowing you to connect directly to a
-  # network using the host's network device. This makes the VM appear as another
-  # physical device on your network.
-  # config.vm.network :bridged
-
-  # Forward a port from the guest to the host, which allows for outside
-  # computers to access the VM, whereas host only networking does not.
-  # config.vm.forward_port 80, 8080
-
-  # Share an additional folder to the guest VM. The first argument is
-  # an identifier, the second is the path on the guest to mount the
-  # folder, and the third is the path on the host to the actual folder.
-  # config.vm.share_folder "v-data", "/vagrant_data", "../data"
+  # config.vm.box_url = "http://files.vagrantup.com/precise32.box"
 
   # Enable provisioning with Puppet stand alone.  Puppet manifests
   # are contained in a directory path relative to this Vagrantfile.
@@ -54,10 +66,11 @@ Vagrant::Config.run do |config|
   # #               Managed by Puppet.\n"
   # # }
   #
-  # config.vm.provision :puppet do |puppet|
-  #   puppet.manifests_path = "manifests"
-  #   puppet.manifest_file  = "precise32.pp"
-  # end
+  config.vm.provision :puppet do |puppet|
+    puppet.manifests_path = 'puppet/manifests'
+    puppet.manifest_file = 'site.pp'
+    puppet.module_path = 'puppet/modules'
+  end
 
   # Enable provisioning with chef solo, specifying a cookbooks path (relative
   # to this Vagrantfile), and adding some recipes and/or roles.
