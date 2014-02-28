@@ -1,6 +1,9 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+# Need hiera for java-related puppeting
+# require 'vagrant-hiera'
+
 # Node names
 nodes = [
   { :hostname => 'zoo1',   :ip => '192.168.0.41', :box => 'precise32' },
@@ -47,6 +50,9 @@ Vagrant::Config.run do |config|
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
   # config.vm.box_url = "http://files.vagrantup.com/precise32.box"
+
+  # Upgrade puppet to 3.x
+  config.vm.provision :shell, :path => "upgrade_puppet.sh"
 
   # Enable provisioning with Puppet stand alone.  Puppet manifests
   # are contained in a directory path relative to this Vagrantfile.

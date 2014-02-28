@@ -34,13 +34,14 @@ Example of event-driven system using Vagrant and a stack of Apache technologies
 
   https://github.com/wikimedia/puppet-zookeeper
 
-# Dependencies
-* Hiera:
-  http://docs.puppetlabs.com/hiera/1/installing.html
+* Puppet 3.x on the guest
 
+  http://blog.doismellburning.co.uk/2013/01/19/upgrading-puppet-in-vagrant-boxes/
+
+# Dependencies
 * Virtual Box Guest Additions compatibility: either keep VirtualBox version in
   synch with Vagrant box or use vagrant-vbguest:
-
- vagrant gem install vagrant-vbguest
-
+```
+vagrant gem install vagrant-vbguest
+```
 
