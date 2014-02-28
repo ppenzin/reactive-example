@@ -18,14 +18,6 @@ Example of event-driven system using Vagrant and a stack of Apache technologies
 
   https://github.com/patrickdlee/vagrant-examples
 
-* _kafka_ module developed by Wikimedia:
-
-  https://github.com/wikimedia/puppet-kafka
-
-  * Enhanced with url-package from ask.puppetlabs.com
-
-    https://ask.puppetlabs.com/question/3473/can-you-install-deb-file-from-the-files-directory/
-
 * _kafka_ module developed by Whisklabs:
 
   http://forge.puppetlabs.com/whisklabs/kafka
