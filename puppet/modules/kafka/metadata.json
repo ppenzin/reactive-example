@@ -1,0 +1,31 @@
+{
+  "name": "whisklabs-kafka",
+  "version": "0.0.2",
+  "source": "UNKNOWN",
+  "author": "whisklabs",
+  "license": "Apache License, Version 2.0",
+  "summary": "UNKNOWN",
+  "description": "Puppet Kafka module",
+  "project_page": "UNKNOWN",
+  "dependencies": [
+    {
+      "name": "puppetlabs/java",
+      "version_requirement": ">= 1.0.0"
+    }
+  ],
+  "types": [
+
+  ],
+  "checksums": {
+    "Modulefile": "c02e9bf8b0152adf034f3f7d081a8452",
+    "README.md": "99934ec18424f208662f931f3c39a125",
+    "manifests/config.pp": "9f56031ebc0518d1bbebba0d05fd0953",
+    "manifests/init.pp": "da26e67cde6074c95d5779ba8e3ff898",
+    "manifests/install.pp": "72065705855459e14c06dad507025b2b",
+    "manifests/package.pp": "b2616cd733b4b6fac06b197156f562c0",
+    "manifests/params.pp": "eae264a6bdd229f3b66df613d42c7ab3",
+    "manifests/service.pp": "df75b1e4810fcbbbd21549eef62062d0",
+    "templates/config/server.properties.erb": "1449ce14ebc2a5e48d17a9162744f122",
+    "templates/init/kafka.conf.erb": "0db062c87f888d4da97de42456822dcc"
+  }
+}
