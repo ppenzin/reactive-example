@@ -1,9 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# Need hiera for java-related puppeting
-# require 'vagrant-hiera'
-
 # Node names
 nodes = [
   { :hostname => 'zoo1',   :ip => '192.168.0.41', :box => 'precise32' },
