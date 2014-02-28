@@ -3,9 +3,6 @@ reactive-example
 
 Example of event-driven system using Vagrant and a stack of Apache technologies
 
-Note: to make sure that guest additions are up to date with VirtualBox version run
- vagrant gem install vagrant-vbguest
-
 # Roadmap
 * In flight:
   1. Set up Kafka zookeper cluster
@@ -26,10 +23,24 @@ Note: to make sure that guest additions are up to date with VirtualBox version r
   https://github.com/wikimedia/puppet-kafka
 
   * Enhanced with url-package from ask.puppetlabs.com
+
     https://ask.puppetlabs.com/question/3473/can-you-install-deb-file-from-the-files-directory/
+
+* _kafka_ module developed by Whisklabs:
+
+  http://forge.puppetlabs.com/whisklabs/kafka
 
 * _zookeper_ module is developed by Wikimedia:
 
   https://github.com/wikimedia/puppet-zookeeper
 
-d
+# Dependencies
+* Hiera:
+  http://docs.puppetlabs.com/hiera/1/installing.html
+
+* Virtual Box Guest Additions compatibility: either keep VirtualBox version in
+  synch with Vagrant box or use vagrant-vbguest:
+
+ vagrant gem install vagrant-vbguest
+
+
