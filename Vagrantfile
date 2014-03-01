@@ -4,9 +4,7 @@
 # Node names
 nodes = [
   { :hostname => 'zoo1',   :ip => '192.168.0.41', :box => 'precise32' },
-  { :hostname => 'zoo2',   :ip => '192.168.0.42', :box => 'precise32' },
   { :hostname => 'kafka1',   :ip => '192.168.0.51', :box => 'precise32' },
-  { :hostname => 'kafka2',   :ip => '192.168.0.52', :box => 'precise32' },
 ]
 # Network settings (host and domain)
 domain   = 'example.org'
