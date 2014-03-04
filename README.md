@@ -1,6 +1,9 @@
 reactive-example
 ================
 
+This repository is outdated, current development is done under UTiWorldwide:
+https://github.com/UTiWorldwide/reactive-example
+
 Example of event-driven system using Vagrant and a stack of Apache technologies
 
 # Roadmap
