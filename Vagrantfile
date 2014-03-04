@@ -1,10 +1,13 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+default_box     = 'precise64'
+default_box_url = 'http://files.vagrantup.com/precise64.box'
+
 # Node names
 nodes = [
-  { :hostname => 'zoo1',   :ip => '192.168.0.41', :box => 'precise64' },
-  { :hostname => 'kafka1',   :ip => '192.168.0.51', :box => 'precise64' },
+  { :hostname => 'zoo1',   :ip => '192.168.0.41' },
+  { :hostname => 'kafka1',   :ip => '192.168.0.51' },
 ]
 # Network settings (host and domain)
 domain   = 'example.org'
@@ -20,8 +23,13 @@ Vagrant::Config.run do |config|
   nodes.each do |node|
     # Separate config for each node
     config.vm.define node[:hostname] do |node_config|
-      # Every Vagrant virtual environment requires a box to build off of.
-      node_config.vm.box = node[:box]
+      # Set box URL
+      box_url = node[:box_url] ? node[:box_url] : default_box_url
+      node_config.vm.box_url = box_url
+
+      # Set box name
+      box = node[:box] ? node[:box] : default_box
+      node_config.vm.box = box
 
       # Add hostname and domain
       node_config.vm.host_name = node[:hostname] + '.' + domain
